@@ -29,7 +29,7 @@ Like a 'BTC-USD'""",
         dest='start_date',
         type="string",
         default="2015-01-01",
-        help="""Enter your desired start date""",
+        help="""Enter your desired start date, --start-date=2021-06-01""",
     )
 
     parser.add_option(
@@ -38,7 +38,7 @@ Like a 'BTC-USD'""",
         dest='end_date',
         type="string",
         default="2023-01-01",
-        help="""Enter your desired end date. If you select a future date, it will get today's date.""",
+        help="""Enter your desired end date. If you select a future date, it will get today's date. --end-date=2022-02-01""",
     )
 
     parser.add_option(
