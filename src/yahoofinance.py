@@ -3,12 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from yahoofinancials import YahooFinancials
-import sys
 import os
 from optparse import OptionParser
 pd.options.plotting.backend = "plotly"
-
-#0.22, 0.0952, 0.0392, 0.0198
 
 def calculateEmaStandard(day):
     return 2 / (day + 1);
@@ -185,7 +182,6 @@ def yahoo_finance(options):
                 df.at[i,"ema100"]=df[['close']].iloc[(i - 99):(i + 1),:].mean()
             else :
                 df.at[i,"ema100"]=df.at[i, "close"] * calculateEmaStandard(100) + df.at[i - 1, "ema100"] * (1 - calculateEmaStandard(100))
-#0.22, 0.0952, 0.0392, 0.0198
 
     df = df.drop(df.index[0:rangeCount]).set_index('formatted_date')
 
