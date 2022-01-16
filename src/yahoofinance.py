@@ -9,6 +9,9 @@ pd.options.plotting.backend = "plotly"
 
 #0.22, 0.0952, 0.0392, 0.0198
 
+def calculateEmaStandard(day):
+    return 2 / (day + 1);
+
 def main():
     parser = OptionParser(usage='usage: %prog [options] ')
 
@@ -165,22 +168,22 @@ def yahoo_finance(options):
             if i == rangeCount :
                 df.at[i,"ema8"]=df[['close']].iloc[(i - 7):(i + 1),:].mean()
             else :
-                df.at[i,"ema8"]=df.at[i, "close"] * 0.222 + df.at[i - 1, "ema8"] * (1 - 0.222) 
+                df.at[i,"ema8"]=df.at[i, "close"] * calculateEmaStandard(8) + df.at[i - 1, "ema8"] * (1 - calculateEmaStandard(8)) 
         if options.ema20 == True or options.ema_all == True:
             if i == rangeCount :
                 df.at[i,"ema20"]=df[['close']].iloc[(i - 19):(i + 1),:].mean()
             else :
-                df.at[i,"ema20"]=df.at[i, "close"] * 0.0952 + df.at[i - 1, "ema20"] * (1 - 0.0952)
+                df.at[i,"ema20"]=df.at[i, "close"] * calculateEmaStandard(20) + df.at[i - 1, "ema20"] * (1 - calculateEmaStandard(20))
         if options.ema50 == True or options.ema_all == True:
             if i == rangeCount :
                 df.at[i,"ema50"]=df[['close']].iloc[(i - 49):(i + 1),:].mean()
             else :
-                df.at[i,"ema50"]=df.at[i, "close"] * 0.0392 + df.at[i - 1, "ema50"] * (1 - 0.0392)
+                df.at[i,"ema50"]=df.at[i, "close"] * calculateEmaStandard(50) + df.at[i - 1, "ema50"] * (1 - calculateEmaStandard(50))
         if options.ema100 == True or options.ema_all == True:
             if i == rangeCount :
                 df.at[i,"ema100"]=df[['close']].iloc[(i - 99):(i + 1),:].mean()
             else :
-                df.at[i,"ema100"]=df.at[i, "close"] * 0.0198 + df.at[i - 1, "ema100"] * (1 - 0.0198)
+                df.at[i,"ema100"]=df.at[i, "close"] * calculateEmaStandard(100) + df.at[i - 1, "ema100"] * (1 - calculateEmaStandard(100))
 #0.22, 0.0952, 0.0392, 0.0198
 
     df = df.drop(df.index[0:rangeCount]).set_index('formatted_date')
