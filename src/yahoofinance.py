@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from yahoofinancials import YahooFinancials
 import sys
+import os
 from optparse import OptionParser
 pd.options.plotting.backend = "plotly"
 
@@ -189,7 +190,10 @@ def yahoo_finance(options):
     df = df.drop(df.index[0:rangeCount]).set_index('formatted_date')
 
     fig = df.plot()
-    fig.write_html(options.symbol + ".html")
+    if os.path.isdir("graphics") == False:
+        os.mkdir("graphics")
+
+    fig.write_html("graphics/" + options.symbol + ".html")
 
 if __name__ == '__main__':
     main()
